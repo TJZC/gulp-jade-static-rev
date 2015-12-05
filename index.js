@@ -50,11 +50,6 @@ function replacePath(src, data){
     return src;
 }
 
-var createHash = function (file, len) {
-    return crypto.createHash('md5').update(file).digest('hex').substr(0, len);
-
-};
-
 module.exports = function (options) {
     return through.obj(function (file, enc, cb) {
         options = options || {};
