@@ -1,0 +1,9 @@
+{
+  "name": "gulp-jade-static-rev",
+  "version": "0.0.1",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-util": "^3.0.0",
+    "through2": "^0.6.1"
+  }
+}
