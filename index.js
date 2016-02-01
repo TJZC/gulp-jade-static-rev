@@ -26,6 +26,10 @@ function replacePath(src, data){
     var _static;
     var assets;
     var extname2;
+    var srcObj = {
+        src: src,
+        require: false
+    };
     for(var key in data){
         if(basename === key){
             _static = data[key];
@@ -44,10 +48,16 @@ function replacePath(src, data){
                 }
             }
 
+            srcObj = {
+                src: src,
+                require: true
+            }
+
+
         }
     }
 
-    return src;
+    return srcObj;
 }
 
 module.exports = function (options) {
@@ -74,8 +84,14 @@ module.exports = function (options) {
             content = content.replace(ASSET_REG[type], function (str, tag, src, _tag) {
                 src = src.replace(/\s/g, '');
                 _tag = _tag.replace(/\s/g, '');
+                var srcObj = replacePath(src, options.assets);
 
-                src = options.root + replacePath(src, options.assets);
+                if(!srcObj.require){
+                    return tag + src + _tag
+                }
+
+
+                src = options.root + srcObj.src;
 
                 return tag + src + _tag;
 
